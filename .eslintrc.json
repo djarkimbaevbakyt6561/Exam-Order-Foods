@@ -1,0 +1,56 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "react", // for react (not required)
+    "react-hooks" // for hooks check (ex. useState)
+  ],
+  "rules": {
+    // eslint
+    "linebreak-style": "off", // for windows linebreak style (CRLF)
+    "semi": ["error", "always"], // for semicolon (ex. const foo = 'bar';)
+    "quotes": ["error", "double"], // for double quotes (ex. const foo = "bar";)
+    "no-unused-vars": "warn", // for unused vars (ex. const foo = 'bar')
+    "no-console": "warn", // for console.log (ex. console.log('foo'))
+
+    // react
+    "react/react-in-jsx-scope": "off", // for impoer React from 'react'
+    "react-hooks/exhaustive-deps": "warn", // for useEffect deps check
+    "react-hooks/rules-of-hooks": "warn", // for hooks check (ex. useState)
+    "react/function-component-definition": "off", // for function component (ex. const Foo = () => <div />;)
+    "react/jsx-props-no-spreading": "off", // for props spreading (ex. <Foo {...props} />)"
+    "react/self-closing-comp": [
+      // for self-closing tag (ex. <div />)
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+
+    // typescript
+    "@typescript-eslint/no-empty-interface": "warn", // for empty interface (ex. interface Foo {})
+    "@typescript-eslint/no-explicit-any": "warn", // for any type (ex. const foo: any = 'bar')
+    "@typescript-eslint/no-unused-vars": "warn" // for unused vars (ex. const foo = 'bar')
+  }
+}
