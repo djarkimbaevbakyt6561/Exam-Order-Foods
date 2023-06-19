@@ -1,19 +1,18 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import Modal from "../../components/modal/Modal";
 import { Loading } from "../../components/UI/loading/Loading";
 import { RootState } from "../../store";
-import { UserHeader } from "./UserHeader";
+import { AppHeader } from "./AppHeader";
 
-export const UserLayout = () => {
+export const AppLayout = () => {
   const auth = useSelector((state: RootState) => state.auth);
-  const { open } = useSelector((state: RootState) => state.basket);
 
   return (
     <>
       {auth.isLoading ? null : <Loading />}
-      {open && <Modal />}
-      <UserHeader />
+
+      <AppHeader />
       <main>
         <Outlet />
       </main>

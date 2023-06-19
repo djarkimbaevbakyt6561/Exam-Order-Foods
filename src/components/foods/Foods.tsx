@@ -1,18 +1,18 @@
-import styled from "@emotion/styled";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import { AppDispatch, RootState } from "../../store";
-import { getMeals } from "../../store/meals/meals.thunk";
+import { getFoodsForAdmins } from "../../store/foods/foods.thunk";
 import { snackBarActions } from "../../store/snack.bar";
 import { IFoodStructure } from "../../types/interfaces";
 import { Loading } from "../UI/loading/Loading";
-import { MealsItem } from "./MealsItem";
+import FoodsItem from "./FoodsItem";
 
-export const Meals = () => {
-  const { meals, isLoading } = useSelector((state: RootState) => state.meals);
+const Foods = () => {
+  const foods = useSelector((state: RootState) => state.foods);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(getMeals())
+    dispatch(getFoodsForAdmins())
       .unwrap()
       .then(() => {
         dispatch(snackBarActions.successHandler("Successfully received foods"));
@@ -21,33 +21,32 @@ export const Meals = () => {
         dispatch(snackBarActions.errorHandler(error));
       });
   }, []);
+
   return (
     <Container>
-      {isLoading ? null : <Loading />}
-      {meals?.map((el: IFoodStructure) => {
+      {foods.isLoading ? null : <Loading />}
+
+      {foods.foods.map((el: IFoodStructure) => {
         return (
-          <MealsItem
-            price={el.price}
+          <FoodsItem
             title={el.title}
             description={el.description}
             key={el._id}
             id={el._id}
+            price={el.price}
           />
         );
       })}
     </Container>
   );
 };
-
-const Container = styled("div")`
-  background-color: #fff;
-  margin: 180px 20%;
-  padding: 16px 40px 16px 40px;
-  border-radius: 16px;
-  main {
-    border-bottom: 1px solid #d6d6d6;
-    &:last-child {
-      border-bottom: none;
-    }
-  }
+export default Foods;
+const Container = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 94%;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 20px;
 `;

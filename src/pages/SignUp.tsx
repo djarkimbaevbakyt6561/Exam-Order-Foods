@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch } from "../store";
 import { signUp } from "../store/auth/auth.thunk";
-import { snackBarActions } from "../store/snackBar";
+import { snackBarActions } from "../store/snack.bar";
 import { ISignUp } from "../types/interfaces";
 import { ROLES } from "../utils/constants";
 export const SignUp = () => {

@@ -5,6 +5,7 @@ const BASE_ULR =
 export const axiosInstance = axios.create({
   baseURL: BASE_ULR,
 });
+
 axiosInstance.interceptors.request.use(
   function (config) {
     config.headers.set("Authorization", store.getState().auth.token);

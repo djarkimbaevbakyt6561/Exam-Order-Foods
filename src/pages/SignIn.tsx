@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { AppDispatch } from "../store";
 import { signIn } from "../store/auth/auth.thunk";
-import { snackBarActions } from "../store/snackBar";
+import { snackBarActions } from "../store/snack.bar";
 import { ISignIn } from "../types/interfaces";
 export const SignIn = () => {
   const [email, setEmail] = useState<string>("");
@@ -22,6 +22,7 @@ export const SignIn = () => {
   function getPasswordValue(e: React.ChangeEvent<HTMLInputElement>): void {
     setPassword(e.target.value);
     setPasswordValid(e.target.value.trim().length > 6);
+    setEmailValid(e.target.value.includes("@"));
     setFormValid(passwordValid && emailValid ? true : false);
   }
 

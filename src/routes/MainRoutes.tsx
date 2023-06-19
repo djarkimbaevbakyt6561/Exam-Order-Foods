@@ -19,6 +19,8 @@ import { AdminLayout } from "../layout/admin/AdminLayout";
 import { MealLayout } from "../layout/mealLayout/MealLayout";
 import { SignUp } from "../pages/SignUp";
 import { SignIn } from "../pages/SignIn";
+import { AdminMeals } from "../components/admin/AdminMeals";
+import { AppLayout } from "../layout/general/AppLayout";
 export const MainRoutes = () => {
   const role = useSelector((state: RootState) => state.auth.user.role);
 
@@ -28,22 +30,12 @@ export const MainRoutes = () => {
         path="/"
         element={
           <ProtectedRoute
-            isAllowed={[ROLES.GUEST, ROLES.USER].includes(role)}
-            fallBacPath="/admin"
-            component={UserLayout}
+            isAllowed={[ROLES.GUEST].includes(role)}
+            fallBacPath={role === ROLES.USER ? "/user" : "/admin"}
+            component={AppLayout}
           />
         }
       >
-        <Route
-          index
-          element={
-            <ProtectedRoute
-              isAllowed={[ROLES.GUEST, ROLES.USER].includes(role)}
-              fallBacPath="/admin"
-              component={MealLayout}
-            />
-          }
-        />
         <Route
           path="signin"
           element={
@@ -66,6 +58,27 @@ export const MainRoutes = () => {
           }
         />
       </Route>
+      <Route
+        path="/user"
+        element={
+          <ProtectedRoute
+            isAllowed={[ROLES.USER].includes(role)}
+            fallBacPath="/"
+            component={UserLayout}
+          />
+        }
+      >
+        <Route
+          index
+          element={
+            <ProtectedRoute
+              isAllowed={[ROLES.GUEST, ROLES.USER].includes(role)}
+              fallBacPath="/admin"
+              component={MealLayout}
+            />
+          }
+        />
+      </Route>
 
       <Route
         path="/admin"
@@ -77,7 +90,7 @@ export const MainRoutes = () => {
           />
         }
       >
-        <Route index element={<h1>Meals</h1>} />
+        <Route index element={<AdminMeals />} />
       </Route>
     </Routes>
   );

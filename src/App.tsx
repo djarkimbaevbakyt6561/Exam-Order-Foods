@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SnackBar } from "./components/UI/modal/SnackBar";
 import { MainRoutes } from "./routes/MainRoutes";
 import { AppDispatch, RootState } from "./store";
-import { snackBarActions } from "./store/snackBar";
+import { snackBarActions } from "./store/snack.bar";
 
 export function App() {
   const snackBar = useSelector((state: RootState) => state.snackBar);
